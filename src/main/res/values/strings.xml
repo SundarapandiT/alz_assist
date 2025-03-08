@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Alz_assist</string>
+    <string-array name="user_roles">
+        <item>Care-Taker</item>
+        <item>Patient</item>
+    </string-array>
+        <string-array name="days_of_week">
+            <item>Monday</item>
+            <item>Tuesday</item>
+            <item>Wednesday</item>
+            <item>Thursday</item>
+            <item>Friday</item>
+            <item>Saturday</item>
+            <item>Sunday</item>
+        </string-array>
+
+        <string-array name="medicine_types">
+            <item>Tablet</item>
+            <item>Syrup</item>
+            <item>Injection</item>
+            <item>Ointment</item>
+        </string-array>
+
+</resources>

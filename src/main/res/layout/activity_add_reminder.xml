@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <!-- EditText for Medicine Name -->
+    <EditText
+        android:id="@+id/medicineNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name of Medicine"
+        android:inputType="text"/>
+
+    <!-- EditText for Dosage -->
+    <EditText
+        android:id="@+id/dosageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Dosage"
+        android:inputType="text"/>
+
+    <!-- Spinner for Medicine Type -->
+    <Spinner
+        android:id="@+id/medicineTypeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- EditText for Reminder Message -->
+    <EditText
+        android:id="@+id/messageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Message for reminder"
+        android:inputType="text"
+        android:text="eg:Take after breakfast"
+        />
+
+    <!-- ChipGroup for selecting days of the week -->
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/dayChipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:singleLine="true" >
+
+        <!-- Add Chips for each day of the week -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="S"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorPrimary"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="M"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorPrimary" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="T"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorPrimary" />
+
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="W"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorPrimary"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="TH"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorPrimary"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="F"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorPrimary"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="S"
+            android:textColor="@android:color/white"
+            app:chipBackgroundColor="@color/colorPrimary"/>
+    </com.google.android.material.chip.ChipGroup>
+
+    <!-- TimePicker to select reminder time -->
+    <android.widget.TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"/>
+
+    <!-- Button to add schedule -->
+    <Button
+        android:id="@+id/scheduleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Schedule"/>
+</LinearLayout>
