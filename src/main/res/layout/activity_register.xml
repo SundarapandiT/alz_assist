@@ -1,83 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:orientation="vertical"
+    android:padding="20dp"
     android:gravity="center"
     android:background="@color/white">
 
-    <!-- App Title -->
     <TextView
+        android:id="@+id/tvRegisterTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alz Assist - Register"
-        android:textSize="22sp"
+        android:text="Hello! Register to get started"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingBottom="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
 
-    <!-- Name Input -->
-    <EditText
-        android:id="@+id/nameEditText"
+    <!-- Spinner for User Role -->
+    <Spinner
+        android:id="@+id/spinnerUserRole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
         android:inputType="textPersonName"
         android:padding="12dp"
-        android:background="@drawable/input_background"/>
+        android:layout_marginBottom="10dp"
+        android:textColorHint="@color/black"/>
 
-    <!-- Email Input -->
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email Address"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="12dp"
-        android:background="@drawable/input_background"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textColorHint="@color/black"/>
 
-    <!-- Password Input -->
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="12dp"
-        android:background="@drawable/input_background"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textColorHint="@color/black"/>
 
-    <!-- Role Selection (Care-Taker / Patient) -->
-    <Spinner
-        android:id="@+id/roleSpinner"
+    <EditText
+        android:id="@+id/etConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/input_background"/>
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp"
+        android:textColorHint="@color/black"/>
 
-    <!-- Register Button -->
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/teal_700"/>
+        android:backgroundTint="@android:color/holo_blue_bright"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"/>
 
-    <!-- Navigate to Login -->
     <TextView
-        android:id="@+id/loginTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Login here"
+        android:text="Or"
+        android:textSize="16sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGoogleRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Login"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_bright"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         android:focusable="true"/>
-
 </LinearLayout>

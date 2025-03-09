@@ -1,98 +1,72 @@
 package com.example.alz_assist.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.alz_assist.R;
+import com.example.alz_assist.adapters.ReminderAdapter;
 
 public class PatientDashboardActivity extends AppCompatActivity {
-
+    private static final String TAG = "PatientDashboard";
     private Button addReminderButton, emergencyContactsButton, photoGalleryButton;
-    private TextView remindersTextView;
+    private RecyclerView remindersRecyclerView;
+    private ReminderAdapter reminderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_dashboard);
 
-        // Initialize UI elements
-        addReminderButton = findViewById(R.id.addReminderButton);
-        emergencyContactsButton = findViewById(R.id.emergencyContactsButton);
-        photoGalleryButton = findViewById(R.id.photoGalleryButton);
-        remindersTextView = findViewById(R.id.remindersTextView);
+        try {
+            // Initialize UI components
+            addReminderButton = findViewById(R.id.addReminderButton);
+            emergencyContactsButton = findViewById(R.id.emergencyContactsButton);
+            photoGalleryButton = findViewById(R.id.photoGalleryButton);
+            remindersRecyclerView = findViewById(R.id.remindersRecyclerView);
 
-        // Display reminders from SharedPreferences
-        displayReminders();
+            // Setup RecyclerView
+            setupRecyclerView();
 
-        // Set onClick listeners
-        addReminderButton.setOnClickListener(v -> openAddReminderActivity());
-        emergencyContactsButton.setOnClickListener(v -> openEmergencyContactsActivity());
-        photoGalleryButton.setOnClickListener(v -> openPhotoGalleryActivity());
-    }
+            // Button click listeners
+            addReminderButton.setOnClickListener(v -> openAddReminderActivity());
+            emergencyContactsButton.setOnClickListener(v -> openEmergencyContactsActivity());
+            photoGalleryButton.setOnClickListener(v -> openPhotoGalleryActivity());
 
-    private void displayReminders() {
-        SharedPreferences prefs = getSharedPreferences("Reminders", MODE_PRIVATE);
-        StringBuilder reminderText = new StringBuilder("Reminders:\n");
+            Log.d(TAG, "PatientDashboardActivity started successfully!");
 
-        // Loop through the reminders stored in SharedPreferences and display them
-        for (String key : prefs.getAll().keySet()) {
-            String reminder = prefs.getString(key, "");
-            String[] reminderData = reminder.split(",");
-            if (reminderData.length >= 6) {
-                String medicineName = reminderData[0];
-                String dosage = reminderData[1];
-                String medicineType = reminderData[2];
-                String message = reminderData[3];
-                String time = reminderData[4] + ":" + reminderData[5];
-                String days = reminderData[6]; // The days will be a list of integers in a string format
-
-                // Format the reminder string to display it more clearly
-                reminderText.append("Medicine: ").append(medicineName).append("\n")
-                        .append("Dosage: ").append(dosage).append("\n")
-                        .append("Type: ").append(medicineType).append("\n")
-                        .append("Message: ").append(message).append("\n")
-                        .append("Time: ").append(time).append("\n")
-                        .append("Days: ").append(days).append("\n\n");
-            }
-        }
-
-        // If no reminders are stored, show a default message
-        if (reminderText.toString().equals("Reminders:\n")) {
-            remindersTextView.setText("No reminders set");
-        } else {
-            remindersTextView.setText(reminderText.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Error in onCreate: " + e.getMessage(), e);
+            Toast.makeText(this, "Something went wrong!", Toast.LENGTH_LONG).show();
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void setupRecyclerView() {
+        remindersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        reminderAdapter = new ReminderAdapter(position -> deleteReminder(position));
+        remindersRecyclerView.setAdapter(reminderAdapter);
+    }
 
-        // If the user has added a reminder, update the displayed reminders
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            // After returning from AddReminderActivity, refresh the reminders list
-            displayReminders();
+    private void deleteReminder(int position) {
+        if (position >= 0 && position < reminderAdapter.getItemCount()) {
+            reminderAdapter.removeReminder(position);
+            Toast.makeText(this, "Reminder deleted", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void openAddReminderActivity() {
-        // Start the activity to add a new reminder
-        Intent intent = new Intent(PatientDashboardActivity.this, AddReminderActivity.class);
-        startActivityForResult(intent, 1); // Start AddReminderActivity for result
+        startActivity(new Intent(this, AddReminderActivity.class));
     }
 
     private void openEmergencyContactsActivity() {
-        // Start the emergency contacts activity
-        Intent intent = new Intent(PatientDashboardActivity.this, EmergencyContactsActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, EmergencyContactsActivity.class));
     }
 
     private void openPhotoGalleryActivity() {
-        // Start the photo gallery activity
-        Intent intent = new Intent(PatientDashboardActivity.this, PhotoGalleryActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, PhotoGalleryActivity.class));
     }
 }

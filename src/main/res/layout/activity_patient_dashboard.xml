@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/remindersTextView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/remindersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No reminders set"
-        android:textSize="16sp"
-        android:layout_marginBottom="20dp"/>
+        android:padding="10dp"
+        android:scrollbars="vertical"/>
+
 
     <Button
         android:id="@+id/addReminderButton"

@@ -3,57 +3,92 @@ package com.example.alz_assist.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.alz_assist.R;
 
+
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText emailEditText, passwordEditText;
-    private Spinner roleSpinner;
-    private Button loginButton;
-    private TextView registerTextView;
+    private EditText etEmail, etPassword;
+    private Spinner spinnerUserRole;
+    private Button btnLogin;
+    private TextView tvRegister, tvForgotPassword;
+    private String selectedRole = "Patient"; // Default role
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        roleSpinner = findViewById(R.id.roleSpinner);
-        loginButton = findViewById(R.id.loginButton);
-        registerTextView = findViewById(R.id.registerTextView);
+        // Initialize UI components
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        spinnerUserRole = findViewById(R.id.spinnerUserRole);
+        btnLogin = findViewById(R.id.btnLogin);
+        tvRegister = findViewById(R.id.tvRegister);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
 
-        // Ensure roleSpinner has the user roles
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.user_roles, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roleSpinner.setAdapter(adapter);
+        // Set up the user role spinner
+        String[] roles = getResources().getStringArray(R.array.user_roles);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, roles);
+        spinnerUserRole.setAdapter(adapter);
 
-        loginButton.setOnClickListener(v -> loginUser());
-        registerTextView.setOnClickListener(v -> {
+        // Handle spinner selection
+        spinnerUserRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedRole = roles[position]; // Save selected role
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Default to Patient
+                selectedRole = "Patient";
+            }
+        });
+
+        // Handle login button click
+        btnLogin.setOnClickListener(view -> {
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Fake authentication (Replace this with Firebase or database validation)
+            if (email.equals("test@alzassist.com") && password.equals("password123")) {
+                Toast.makeText(LoginActivity.this, "Login Successful as " + selectedRole, Toast.LENGTH_SHORT).show();
+
+                // Navigate based on user role
+                if (selectedRole.equals("Care-Taker")) {
+                    startActivity(new Intent(LoginActivity.this, CareTakerDashboardActivity.class));
+                } else {
+                    startActivity(new Intent(LoginActivity.this, PatientDashboardActivity.class));
+                }
+                finish(); // Close LoginActivity
+            } else {
+                Toast.makeText(LoginActivity.this, "Invalid credentials!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Navigate to Register Activity
+        tvRegister.setOnClickListener(view -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
-    }
 
-    private void loginUser() {
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
-        String role = roleSpinner.getSelectedItem().toString();
-
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Simulate login validation
-        if (role.equals("Care-Taker")) {
-            startActivity(new Intent(this, CareTakerDashboardActivity.class));
-        } else if (role.equals("Patient")) {
-            startActivity(new Intent(this, PatientDashboardActivity.class));
-        } else {
-            Toast.makeText(this, "Invalid role selected!", Toast.LENGTH_SHORT).show();
-        }
+        // Handle Forgot Password click
+        tvForgotPassword.setOnClickListener(view -> {
+            Toast.makeText(LoginActivity.this, "Reset password feature coming soon!", Toast.LENGTH_SHORT).show();
+        });
     }
 }

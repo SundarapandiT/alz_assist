@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions for reminders and alarms -->
+    <uses-permission android:name="android.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,34 +17,31 @@
         android:theme="@style/Theme.Alz_assist"
         tools:targetApi="31">
 
-        <!-- LoginActivity (Set as Launcher Activity) -->
+        <!-- LoginActivity (Launcher Activity) -->
         <activity android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <!-- Register Activity -->
-        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.RegisterActivity"/>
 
         <!-- Care-Taker Dashboard -->
-<!--        <activity android:name=".activities.CareTakerDashboardActivity" />-->
+        <activity android:name=".activities.CareTakerDashboardActivity" />
 
         <!-- Patient Dashboard -->
+        <activity android:name=".activities.PatientDashboardActivity"/>
 
-        <activity android:name=".activities.PatientDashboardActivity" />
-
-        <activity android:name=".activities.AddReminderActivity" />
-
+        <!-- Add Reminder -->
+        <activity android:name=".activities.AddReminderActivity"/>
 
         <!-- Reminder Alarm Receiver -->
         <receiver android:name=".activities.ReminderAlarmReceiver"
             android:enabled="true"
-            android:exported="false" />
-<!--        <uses-permission android:name="android.permission.SET_ALARM"/>-->
-<!--        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
+            android:exported="false"/>
 
     </application>
 </manifest>
